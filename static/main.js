@@ -42,3 +42,22 @@ let chart = new Chart(ctx, {
         }
     }
 });
+
+async function get_data() {
+    let response = await fetch('/generate-data?' + new URLSearchParams({
+        lambda: 5,
+        alpha: 2,
+        beta: 3,
+        delta: 4,
+        mu: 1,
+    }));
+
+    if(response.ok) {
+        let json = await response.json();
+        console.log(json);
+    } else{
+        console.log("HTTP-Error: " + response.status)
+    }
+}
+
+get_data();
