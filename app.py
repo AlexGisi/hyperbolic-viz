@@ -13,14 +13,17 @@ def hello_world():
 
 @app.route('/generate-data', methods=["GET"])
 def generate_data():
-    lam = request.args.get('lambda')
-    alpha = request.args.get('alpha')
-    beta = request.args.get('beta')
-    delta = request.args.get('delta')
-    mu = request.args.get('mu')
-
-    if not (lam and alpha and beta and delta and mu):
+    try:
+        lam = int(request.args.get('lambda'))
+        alpha = int(request.args.get('alpha'))
+        beta = int(request.args.get('beta'))
+        delta = int(request.args.get('delta'))
+        mu = int(request.args.get('mu'))
+    except TypeError:
         return "Required parameters not found: lambda, alpha, beta, delta, mu", 400
+
+    if not verify_param_domains(lam=lam, delta=delta, alpha=alpha, beta=beta):
+        return "Invalid domains for at least one parameter", 400
 
     print(lam)
 
@@ -29,6 +32,21 @@ def generate_data():
                    beta=beta,
                    delta=delta,
                    mu=mu)
+
+
+def verify_param_domains(lam, delta, alpha, beta):
+    if lam > 0:
+        return (delta >= 0 and
+                alpha > 0 and
+                -alpha < beta < alpha)
+    elif lam == 0:
+        return (delta > 0 and
+                alpha > 0 and
+                -alpha < beta < alpha)
+    else:
+        return (delta > 0 and
+                alpha >= 0 and
+                -alpha <= beta <= alpha)
 
 
 if __name__ == '__main__':

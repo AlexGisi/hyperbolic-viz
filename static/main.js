@@ -45,18 +45,26 @@ let chart = new Chart(ctx, {
 
 async function get_data() {
     let response = await fetch('/generate-data?' + new URLSearchParams({
-        lambda: 5,
+        lambda: 1,
         alpha: 2,
-        beta: 3,
+        beta: 1,
         delta: 4,
-        mu: 1,
+        mu: 0,
     }));
 
     if(response.ok) {
         let json = await response.json();
-        console.log(json);
+        draw(json)
     } else{
-        console.log("HTTP-Error: " + response.status)
+        console.log("HTTP Error: " + response.status)
+    }
+}
+
+function draw(data) {
+    for(let key in data) {
+        if (!data.hasOwnProperty(key)) continue;
+
+        console.log(key + ": " + data[key])
     }
 }
 
