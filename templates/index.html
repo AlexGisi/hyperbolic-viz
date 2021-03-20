@@ -5,11 +5,49 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16x16.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     <title>Hyperbolic Vizualization</title>
 </head>
 <body>
-    <p>Hello World!</p>
-    <canvas id="vizChart" style="max-width: 600px; max-height: 600px;"></canvas>
+    <div class="col">
+        <h1>Narrow parameters to specificed distribution:</h1>
+        <div class="row">
+            <div id="hyperbolic" class="preset-button">
+                <div class="row-tall">
+                    <h3>Hyperbolic</h3>
+                </div>
+            </div>
+
+            <div id="scaled-laplace" class="preset-button">
+                <h3>Scaled Laplace</h3>
+            </div>
+
+            <div id="students-t" class="preset-button">
+                <h3>Student's T</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <canvas id="vizChart" style="max-width: 600px; max-height: 600px;"></canvas>
+    </div>
+
+    <div class="col">
+        <label for="lambda">Lambda: </label>
+        <input type="number" id="lambda" name="lambda" value="0">
+
+        <label for="alpha">Alpha: </label>
+        <input type="number" id="alpha" name="alpha" value="0">
+
+        <label for="beta">Beta: </label>
+        <input type="number" id="beta" name="beta" value="0">
+
+        <label for="delta">Delta: </label>
+        <input type="number" id="delta" name="delta" value="0">
+
+        <label for="mu">Mu: </label>
+        <input type="number" id="mu" name="mu" value="0">
+    </div>
 
     <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>

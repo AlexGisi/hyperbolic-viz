@@ -1,0 +1,42 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+.col {
+    display: flex;
+    flex-flow: column wrap-reverse;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 500px;
+
+}
+
+.row {
+    display: flex;
+    flex-flow: row wrap-reverse;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 200px;
+}
+
+.row-tall {
+    height: 100%;
+}
+
+.preset-button {
+    width: 120px;
+    height: 60px;
+    border-style: solid;
+    border-width: thin;
+    text-align: center;
+}
+
+.preset-button:hover {
+    cursor: pointer;
+}
