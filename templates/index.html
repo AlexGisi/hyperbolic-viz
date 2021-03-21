@@ -32,21 +32,27 @@
         <canvas id="vizChart" style="max-width: 600px; max-height: 600px;"></canvas>
     </div>
 
+    <div class="row">
+        <div class="error-message" id="error">
+            <h3 id="error-text"></h3>
+        </div>
+    </div>
+
     <div class="col">
         <label for="lambda">Lambda: </label>
-        <input type="number" id="lambda" name="lambda" value="0">
+        <input type="number" id="lambda" name="lambda" value="0" onchange="val_change()">
 
         <label for="alpha">Alpha: </label>
-        <input type="number" id="alpha" name="alpha" value="0">
+        <input type="number" id="alpha" name="alpha" value="0" onchange="val_change()">
 
         <label for="beta">Beta: </label>
-        <input type="number" id="beta" name="beta" value="0">
+        <input type="number" id="beta" name="beta" value="0" onchange="val_change()">
 
         <label for="delta">Delta: </label>
-        <input type="number" id="delta" name="delta" value="0">
+        <input type="number" id="delta" name="delta" value="0" onchange="val_change()">
 
         <label for="mu">Mu: </label>
-        <input type="number" id="mu" name="mu" value="0">
+        <input type="number" id="mu" name="mu" value="0" onchange="val_change()">
     </div>
 
     <script src="{{ url_for('static', filename='main.js') }}"></script>

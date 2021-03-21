@@ -40,3 +40,12 @@ html, body {
 .preset-button:hover {
     cursor: pointer;
 }
+
+.error-message {
+    width: 300px;
+    height: 75px;
+    background-color: lightcoral;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}

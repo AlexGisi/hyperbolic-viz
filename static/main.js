@@ -43,19 +43,20 @@ let chart = new Chart(ctx, {
     }
 });
 
-async function get_data() {
+async function get_data(l, a, b, d, m) {
     let response = await fetch('/generate-data?' + new URLSearchParams({
-        lambda: 1,
-        alpha: 2,
-        beta: 1,
-        delta: 4,
-        mu: 0,
+        lambda: l,
+        alpha: a,
+        beta: b,
+        delta: d,
+        mu: m,
     }));
 
     if(response.ok) {
         let json = await response.json();
         draw(json)
-    } else{
+    } else {
+        show_e("Bad input");
         console.log("HTTP Error: " + response.status)
     }
 }
@@ -68,4 +69,30 @@ function draw(data) {
     }
 }
 
-get_data();
+let e_div = document.getElementById('error');
+let sels = document.querySelectorAll('input');
+let lambda_sel = document.getElementById('lambda');
+let alpha_sel = document.getElementById('alpha');
+let beta_sel = document.getElementById('beta');
+let delta_sel = document.getElementById('delta');
+let mu_sel = document.getElementById('mu');
+
+function val_change() {
+    hide_e();
+    get_data(lambda_sel.value,
+             alpha_sel.value,
+             beta_sel.value,
+             delta_sel.value,
+             mu_sel.value);
+}
+
+function hide_e() {
+    e_div.style.display = "none";
+}
+
+function show_e(text) {
+    e_div.style.display = "flex";
+    document.getElementById('error-text').innerText = "Error: " + text;
+}
+
+hide_e();
