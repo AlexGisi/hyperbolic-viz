@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from scipy import stats
 
 app = Flask(__name__,
             template_folder='templates',
@@ -32,6 +33,34 @@ def generate_data():
                    beta=beta,
                    delta=delta,
                    mu=mu)
+
+
+def generate_student_t():
+    """
+    # The student t distribution is obtained for lambda<1, alpha=beta=mu=0.
+    :return:
+    """
+    pass
+
+
+def generate_norm_inv_gaussian(alpha, beta, mu, delta):
+    """
+    The NIG is obtained for lambda=-1/2
+    scipy.stats.norminvgauss
+    :return:
+    """
+    x_arr = []
+    y_arr = []
+
+    for x in range(-10, 10, 1):
+        x_arr.append(x/100)
+        y_arr.append(stats.norminvgauss.pdf(x/100,
+                                            a=alpha,
+                                            b=beta,
+                                            loc=mu,
+                                            scale=delta))
+
+    return x_arr, y_arr
 
 
 def verify_param_domains(lam, delta, alpha, beta):
