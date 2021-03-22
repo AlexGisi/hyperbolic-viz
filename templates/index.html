@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
@@ -9,50 +9,44 @@
     <title>Hyperbolic Vizualization</title>
 </head>
 <body>
-    <div class="col">
-        <h1>Narrow parameters to specificed distribution:</h1>
-        <div class="row">
-            <div id="hyperbolic" class="preset-button">
-                <div class="row-tall">
-                    <h3>Hyperbolic</h3>
-                </div>
-            </div>
-
-            <div id="scaled-laplace" class="preset-button">
-                <h3>Scaled Laplace</h3>
-            </div>
-
-            <div id="students-t" class="preset-button">
-                <h3>Student's T</h3>
-            </div>
-        </div>
-    </div>
 
     <div class="row">
         <canvas id="vizChart" style="max-width: 600px; max-height: 600px;"></canvas>
     </div>
 
     <div class="row">
-        <div class="error-message" id="error">
-            <h3 id="error-text"></h3>
+        <div class="col">
+            <h3>Lock parameters to distribution</h3>
+            <button onclick="">Hyperbolic</button>
+            <button onclick="">Scaled Laplace</button>
+            <button onclick="">Student's T</button>
+            <button onclick="">Normal Inverse Gaussian</button>
         </div>
-    </div>
 
-    <div class="col">
-        <label for="lambda">Lambda: </label>
-        <input type="number" id="lambda" name="lambda" value="0" onchange="val_change()">
-
-        <label for="alpha">Alpha: </label>
-        <input type="number" id="alpha" name="alpha" value="0" onchange="val_change()">
-
-        <label for="beta">Beta: </label>
-        <input type="number" id="beta" name="beta" value="0" onchange="val_change()">
-
-        <label for="delta">Delta: </label>
-        <input type="number" id="delta" name="delta" value="0" onchange="val_change()">
-
-        <label for="mu">Mu: </label>
-        <input type="number" id="mu" name="mu" value="0" onchange="val_change()">
+        <div class="col">
+            <table>
+                <tr>
+                    <td><label for="lambda">Lambda: </label></td>
+                    <td><input type="number" id="lambda" name="lambda" value="0" onchange="val_change()"></td>
+                </tr>
+                <tr>
+                    <td><label for="alpha">Alpha: </label></td>
+                    <td><input type="number" id="alpha" name="alpha" value="0" onchange="val_change()"></td>
+                </tr>
+                <tr>
+                    <td><label for="beta">Beta: </label></td>
+                    <td><input type="number" id="beta" name="beta" value="0" onchange="val_change()"></td>
+                </tr>
+                <tr>
+                    <td><label for="delta">Delta: </label></td>
+                    <td><input type="number" id="delta" name="delta" value="0" onchange="val_change()"></td>
+                </tr>
+                <tr>
+                    <td><label for="mu">Mu: </label></td>
+                    <td><input type="number" id="mu" name="mu" value="0" onchange="val_change()"></td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <script src="{{ url_for('static', filename='main.js') }}"></script>
