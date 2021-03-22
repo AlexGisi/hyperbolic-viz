@@ -34,3 +34,7 @@ button {
 tr {
     margin: 2px 0 2px;
 }
+
+button.sel {
+    background-color: lightgreen;
+}

@@ -9,18 +9,20 @@
     <title>Hyperbolic Vizualization</title>
 </head>
 <body>
-
     <div class="row">
-        <canvas id="vizChart" style="max-width: 600px; max-height: 600px;"></canvas>
+        <h1>GH Probability Density Function Visualization</h1>
+    </div>
+    <div class="row">
+        <canvas id="vizChart" style="max-width: 75%; max-height: 600px;"></canvas>
     </div>
 
     <div class="row">
         <div class="col">
             <h3>Lock parameters to distribution</h3>
-            <button onclick="">Hyperbolic</button>
-            <button onclick="">Scaled Laplace</button>
-            <button onclick="">Student's T</button>
-            <button onclick="">Normal Inverse Gaussian</button>
+            <button id="hyper-btn" onclick="onclick_hyper()">Hyperbolic</button>
+            <button id="sl-btn" onclick="onclick_sl()">Scaled Laplace</button>
+            <button id="st-btn" onclick="onclick_st()">Student's T</button>
+            <button id="nig-btn" class="sel" onclick="onclick_nig()">Normal Inverse Gaussian</button>
         </div>
 
         <div class="col">
