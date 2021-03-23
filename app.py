@@ -26,13 +26,19 @@ def generate_data():
     if not verify_param_domains(lam=lam, delta=delta, alpha=alpha, beta=beta):
         return "Invalid domains for at least one parameter", 400
 
-    print(lam)
+    res = {"is_implemented": True,
+           "x_arr": [],
+           "y_arr": []}
 
-    return jsonify(lam=lam,
-                   alpha=alpha,
-                   beta=beta,
-                   delta=delta,
-                   mu=mu)
+    if lam == -1/2:
+        res["x_arr"], res["y_arr"] = generate_norm_inv_gaussian(alpha=alpha,
+                                                                beta=beta,
+                                                                mu=mu,
+                                                                delta=delta)
+    else:
+        res["is_implemented"] = False
+
+    return jsonify(res)
 
 
 def generate_student_t():
@@ -52,7 +58,7 @@ def generate_norm_inv_gaussian(alpha, beta, mu, delta):
     x_arr = []
     y_arr = []
 
-    for x in range(-10, 10, 1):
+    for x in range(-100, 100, 1):
         x_arr.append(x/100)
         y_arr.append(stats.norminvgauss.pdf(x/100,
                                             a=alpha,

@@ -2,6 +2,7 @@ let ctx = document.getElementById('vizChart').getContext('2d');
 let chart = new Chart(ctx, {
     type: 'line',
     data: {
+        labels: [],
         datasets: [{
             data: []
         }]
@@ -14,21 +15,28 @@ let chart = new Chart(ctx, {
         legend: {
             display: false,
         },
+        elements: {
+            point: {
+                radius: 1
+            }
+        },
         scales: {
             xAxes: [{
+                display: true,
                 offset: true,
                 scaleLabel: {
                     display: true,
                 },
                 ticks: {
-                    min: -1,
-                    max: 1,
+                    min: -0.1,
+                    max: 0.1,
                 }
             }],
             yAxes: [{
                 display: true,
                 ticks: {
                     beginAtZero: true,
+                    max: 40
                 }
             }]
         }
@@ -46,7 +54,10 @@ async function get_data(l, a, b, d, m) {
 
     if(response.ok) {
         let json = await response.json();
-        draw(json)
+        if(!is_nyi_error(json)) {
+            clearChart();
+            draw(json);
+        }
     } else {
         alert("Bad Input");
         console.log("HTTP Error: " + response.status)
@@ -54,14 +65,20 @@ async function get_data(l, a, b, d, m) {
 }
 
 function draw(data) {
-    for(let key in data) {
-        if (!data.hasOwnProperty(key)) continue;
+    chart.config.data.datasets[0].data = data["y_arr"];
+    chart.config.data.labels = data["x_arr"];
 
-        console.log(key + ": " + data[key])
-    }
+    let max = Math.ceil((Math.max.apply(null, data["y_arr"]))/5)*5;
+    let over = Math.ceil((max*0.1)/5)*5;
+    chart.config.options.scales.yAxes[0].ticks.max = max + over;
+
+    chart.update();
 }
 
-let sels = document.querySelectorAll('input');
+function clearChart() {
+    chart.config.data.datasets[0].data = [];
+}
+
 let lambda_sel = document.getElementById('lambda');
 let alpha_sel = document.getElementById('alpha');
 let beta_sel = document.getElementById('beta');
@@ -75,6 +92,7 @@ let st_btn = document.getElementById('st-btn');
 let nig_btn = document.getElementById('nig-btn');
 
 let a_b_error = document.getElementById('a-b-error');
+let nyi_error = document.getElementById('nyi-error');
 
 function is_a_b_error() {
     if(!(-parseFloat(alpha_sel.value) < parseFloat(beta_sel.value) &&
@@ -85,6 +103,17 @@ function is_a_b_error() {
         a_b_error.style.display = 'none';
         return false;
     }
+}
+
+function is_nyi_error(json) {
+    if(json["is_implemented"] === false) {
+        nyi_error.style.display = "inline";
+        return true;
+    } else {
+        nyi_error.style.display = "none";
+        return false;
+    }
+
 }
 function val_change() {
     if(!is_a_b_error()) {
@@ -134,11 +163,11 @@ function lock(btn) {
         btn.classList.add("sel");
         lambda_sel.disabled = true;
         lambda_sel.value = -0.5;
-        delta_sel.min = 0.0000001;
+        delta_sel.min = 0;
         alpha_sel.min = 0;
         beta_sel.value = 0.01;
         alpha_sel.value = 0.1;
-        delta_sel.value = 0.1
+        delta_sel.value = 0.01;
     }
 }
 
@@ -160,3 +189,5 @@ function unlock(btn) {
 
 click(nig_btn);
 is_a_b_error();
+nyi_error.style.display = "none";
+val_change();
