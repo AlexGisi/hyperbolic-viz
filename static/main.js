@@ -74,12 +74,26 @@ let sl_btn = document.getElementById('sl-btn');
 let st_btn = document.getElementById('st-btn');
 let nig_btn = document.getElementById('nig-btn');
 
+let a_b_error = document.getElementById('a-b-error');
+
+function is_a_b_error() {
+    if(!(-parseFloat(alpha_sel.value) < parseFloat(beta_sel.value) &&
+         parseFloat(beta_sel.value) < parseFloat(alpha_sel.value))) {
+        a_b_error.style.display = 'inline';
+        return true;
+    } else {
+        a_b_error.style.display = 'none';
+        return false;
+    }
+}
 function val_change() {
-    get_data(lambda_sel.value,
-             alpha_sel.value,
-             beta_sel.value,
-             delta_sel.value,
-             mu_sel.value);
+    if(!is_a_b_error()) {
+        get_data(lambda_sel.value,
+            alpha_sel.value,
+            beta_sel.value,
+            delta_sel.value,
+            mu_sel.value);
+    }
 }
 
 function onclick_hyper() {
@@ -118,9 +132,31 @@ function lock(btn) {
         alert("Not Yet Implemented")
     } else if(btn.id === "nig-btn") {
         btn.classList.add("sel");
+        lambda_sel.disabled = true;
+        lambda_sel.value = -0.5;
+        delta_sel.min = 0.0000001;
+        alpha_sel.min = 0;
+        beta_sel.value = 0.01;
+        alpha_sel.value = 0.1;
+        delta_sel.value = 0.1
     }
 }
 
 function unlock(btn) {
     btn.classList.remove("sel");
+    if(btn.id === "hyper-btn") {
+
+    } else if(btn.id === "sl-btn") {
+
+    } else if(btn.id === "st-btn") {
+
+    } else if(btn.id === "nig-btn") {
+        lambda_sel.disabled = false;
+        delta_sel.removeAttribute('min');
+        alpha_sel.removeAttribute('min');
+
+    }
 }
+
+click(nig_btn);
+is_a_b_error();

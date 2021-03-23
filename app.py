@@ -15,11 +15,11 @@ def hello_world():
 @app.route('/generate-data', methods=["GET"])
 def generate_data():
     try:
-        lam = int(request.args.get('lambda'))
-        alpha = int(request.args.get('alpha'))
-        beta = int(request.args.get('beta'))
-        delta = int(request.args.get('delta'))
-        mu = int(request.args.get('mu'))
+        lam = float(request.args.get('lambda'))
+        alpha = float(request.args.get('alpha'))
+        beta = float(request.args.get('beta'))
+        delta = float(request.args.get('delta'))
+        mu = float(request.args.get('mu'))
     except TypeError:
         return "Required parameters not found: lambda, alpha, beta, delta, mu", 400
 
