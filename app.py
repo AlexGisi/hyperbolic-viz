@@ -1,18 +1,19 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Blueprint
 from scipy import stats
 
-app = Flask(__name__,
-            template_folder='templates',
-            static_folder='static',
-            static_url_path='/static')
+hyperbolic_viz = Blueprint('hyperbolic-viz',
+                           __name__,
+                           template_folder='templates',
+                           static_folder='static',
+                           static_url_path='/h-v/static')
 
 
-@app.route('/')
+@hyperbolic_viz.route('/')
 def hello_world():
     return render_template('index.html')
 
 
-@app.route('/generate-data', methods=["GET"])
+@hyperbolic_viz.route('/generate-data', methods=["GET"])
 def generate_data():
     try:
         lam = float(request.args.get('lambda'))
@@ -85,4 +86,7 @@ def verify_param_domains(lam, delta, alpha, beta):
 
 
 if __name__ == '__main__':
-    app.run(DEBUG=True)
+    app = Flask(__name__)
+    app.register_blueprint(hyperbolic_viz)
+
+    app.run()

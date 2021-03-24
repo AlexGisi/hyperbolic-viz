@@ -30,7 +30,7 @@ let chart = new Chart(ctx, {
                 ticks: {
                     min: -0.1,
                     max: 0.1,
-                }
+                },
             }],
             yAxes: [{
                 display: true,
@@ -68,6 +68,7 @@ function draw(data) {
     chart.config.data.datasets[0].data = data["y_arr"];
     chart.config.data.labels = data["x_arr"];
 
+    // Round these up to the nearest five.
     let max = Math.ceil((Math.max.apply(null, data["y_arr"]))/5)*5;
     let over = Math.ceil((max*0.1)/5)*5;
     chart.config.options.scales.yAxes[0].ticks.max = max + over;
