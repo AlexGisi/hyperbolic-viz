@@ -8,7 +8,7 @@ hyperbolic_viz = Blueprint('hyperbolic-viz',
                            static_url_path='/h-v/static')
 
 
-@hyperbolic_viz.route('/')
+@hyperbolic_viz.route('/hyperbolic')
 def hello_world():
     return render_template('index.html')
 
