@@ -119,10 +119,10 @@ function is_nyi_error(json) {
 function val_change() {
     if(!is_a_b_error()) {
         get_data(lambda_sel.value,
-            alpha_sel.value,
-            beta_sel.value,
-            delta_sel.value,
-            mu_sel.value);
+                 alpha_sel.value,
+                 beta_sel.value,
+                 delta_sel.value,
+                 mu_sel.value);
     }
 }
 
@@ -154,14 +154,34 @@ function click(btn) {
 }
 
 function lock(btn) {
+    btn.classList.add("sel");
     if(btn.id === "hyper-btn") {
-        alert("Not Yet Implemented")
+        lambda_sel.disabled = true;
+        lambda_sel.value = 1;
+        delta_sel.min = 0;
+        delta_sel.value = 0.01;
+        alpha_sel.min = 0;
+        alpha_sel.value = 0.1;
     } else if(btn.id === "sl-btn") {
-        alert("Not Yet Implemented")
+        lambda_sel.disabled = true;
+        lambda_sel.value = 1;
+        delta_sel.disabled = true;
+        delta_sel.value = 0;
+        beta_sel.disabled = true;
+        beta_sel.value = 0;
+        mu_sel.disabled = true;
+        mu_sel.value = 0;
+        alpha_sel.min = 0;
     } else if(btn.id === "st-btn") {
-        alert("Not Yet Implemented")
+        lambda_sel.max = 0;
+        lambda_sel.value = 0.1;
+        alpha_sel.disabled = true;
+        alpha_sel.value = 0;
+        beta_sel.disabled = true;
+        beta_sel.value = 0;
+        mu_sel.disabled = true;
+        mu_sel.value = 0;
     } else if(btn.id === "nig-btn") {
-        btn.classList.add("sel");
         lambda_sel.disabled = true;
         lambda_sel.value = -0.5;
         delta_sel.min = 0;
@@ -175,11 +195,23 @@ function lock(btn) {
 function unlock(btn) {
     btn.classList.remove("sel");
     if(btn.id === "hyper-btn") {
-
+        lambda_sel.disabled = false;
+        delta_sel.removeAttribute('min');
+        alpha_sel.removeAttribute('min');
     } else if(btn.id === "sl-btn") {
-
+        lambda_sel.disabled = false;
+        delta_sel.disabled = false;
+        beta_sel.disabled = false;
+        mu_sel.disabled = false;
+        delta_sel.removeAttribute('min');
+        alpha_sel.removeAttribute('min');
+        beta_sel.removeAttribute('min');
+        mu_sel.removeAttribute('min');
     } else if(btn.id === "st-btn") {
-
+        lambda_sel.removeAttribute('max');
+        alpha_sel.disabled = false;
+        beta_sel.disabled = false;
+        mu_sel.disabled = false;
     } else if(btn.id === "nig-btn") {
         lambda_sel.disabled = false;
         delta_sel.removeAttribute('min');
