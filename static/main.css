@@ -14,7 +14,7 @@ html, body {
     justify-content: center;
     align-items: center;
     flex: 1 1 100px;
-
+    height: 100%;
 }
 
 .row {
@@ -26,9 +26,10 @@ html, body {
 }
 
 button {
-    height: 50px;
-    width: 200px;
+    height: 100px;
+    width: 300px;
     margin: 5px 10px 5px;
+    font-size: 24pt;
 }
 
 tr {
@@ -37,4 +38,13 @@ tr {
 
 button.sel {
     background-color: lightgreen;
+}
+
+label {
+    font-size: 24pt;
+}
+
+input {
+    height: 30px;
+    width: 150px;
 }

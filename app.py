@@ -27,45 +27,32 @@ def generate_data():
     if not verify_param_domains(lam=lam, delta=delta, alpha=alpha, beta=beta):
         return "Invalid domains for at least one parameter", 400
 
-    res = {"is_implemented": True,
-           "x_arr": [],
-           "y_arr": []}
+    res = {"is_implemented": True, "x_arr": [], "y_arr": []}
 
-    if lam == -1/2:
-        res["x_arr"], res["y_arr"] = generate_norm_inv_gaussian(alpha=alpha,
-                                                                beta=beta,
-                                                                mu=mu,
-                                                                delta=delta)
-    else:
-        res["is_implemented"] = False
+    res["x_arr"], res["y_arr"] = gen_distribution(lam=lam,
+                                                  alpha=alpha,
+                                                  beta=beta,
+                                                  mu=mu,
+                                                  delta=delta)
 
     return jsonify(res)
 
 
-def generate_student_t():
-    """
-    # The student t distribution is obtained for lambda<1, alpha=beta=mu=0.
-    :return:
-    """
-    pass
-
-
-def generate_norm_inv_gaussian(alpha, beta, mu, delta):
-    """
-    The NIG is obtained for lambda=-1/2
-    scipy.stats.norminvgauss
-    :return:
-    """
+def gen_distribution(lam, alpha, beta, mu, delta):
     x_arr = []
     y_arr = []
 
+    a = alpha * delta
+    b = beta * delta
+
     for x in range(-100, 100, 1):
-        x_arr.append(x/100)
-        y_arr.append(stats.norminvgauss.pdf(x/100,
-                                            a=alpha,
-                                            b=beta,
-                                            loc=mu,
-                                            scale=delta))
+        x_arr.append(x / 100)
+        y_arr.append(stats.genhyperbolic.pdf(x / 100,
+                          p=lam,
+                          a=a,
+                          b=b,
+                          loc=mu,
+                          scale=delta))
 
     return x_arr, y_arr
 
@@ -83,6 +70,20 @@ def verify_param_domains(lam, delta, alpha, beta):
         return (delta > 0 and
                 alpha >= 0 and
                 -alpha <= beta <= alpha)
+
+
+def is_sl(lam, delta, beta, mu):
+    if lam == 0 and delta == 0 and beta == 0 and mu == 0:
+        return True
+    else:
+        return False
+
+
+def is_t(lam, alpha, beta, mu):
+    if lam < 0 and alpha == 0 and beta == 0 and mu == 0:
+        return True
+    else:
+        return False
 
 
 if __name__ == '__main__':
