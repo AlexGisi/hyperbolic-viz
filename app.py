@@ -10,7 +10,7 @@ hyperbolic_viz = Blueprint('hyperbolic-viz',
 
 @hyperbolic_viz.route('/')
 def hello_world():
-    return render_template('index.html')
+    return render_template('h_index.html')
 
 
 @hyperbolic_viz.route('/generate-data', methods=["GET"])
